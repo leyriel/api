@@ -22,7 +22,7 @@ namespace MyApi.Controllers
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/User test
         [HttpGet]
         public IEnumerable<Users> GetUsers()
         {
