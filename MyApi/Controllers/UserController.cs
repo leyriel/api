@@ -107,10 +107,9 @@ namespace MyApi.Controllers
             }
 
             //encrypte password                        
-            System.Diagnostics.Debug.WriteLine("KEY-GENERATOR", this.KeyGenerator());            
-            var hashedPassword = this.SHA1(user.Password + this.KeyGenerator());
+            System.Diagnostics.Debug.WriteLine("KEY-GENERATOR", this.KeyGenerator());
             System.Diagnostics.Debug.WriteLine("PASSWORD-HASHED", this.SHA1(user.Password));
-
+            var hashedPassword = this.SHA1(user.Password + this.KeyGenerator());           
             user.Skey = this.KeyGenerator();
             user.Password = hashedPassword;            
 
