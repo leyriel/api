@@ -11,9 +11,10 @@ using System;
 namespace MyApi.Migrations
 {
     [DbContext(typeof(ApiDBContext))]
-    partial class ApiDBContextModelSnapshot : ModelSnapshot
+    [Migration("20171023124157_addEstablishmentsModel")]
+    partial class addEstablishmentsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +23,7 @@ namespace MyApi.Migrations
 
             modelBuilder.Entity("MyApi.Models.Establishments", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Address");
@@ -31,22 +32,19 @@ namespace MyApi.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("PostalCode")
-                        .HasMaxLength(5);
+                    b.Property<string>("Postal_code");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Establishments");
                 });
 
             modelBuilder.Entity("MyApi.Models.Users", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Email");
-
-                    b.Property<int>("EstablishmentID");
 
                     b.Property<string>("Password");
 
@@ -54,19 +52,9 @@ namespace MyApi.Migrations
 
                     b.Property<string>("Username");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("EstablishmentID");
+                    b.HasKey("id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("MyApi.Models.Users", b =>
-                {
-                    b.HasOne("MyApi.Models.Establishments", "Establishment")
-                        .WithMany("Users")
-                        .HasForeignKey("EstablishmentID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -13,6 +13,6 @@ namespace MyApi.Models
         { }
 
         public DbSet<Users> Users { get; set; }
-        public DbSet<Cars> Cars { get; set; }
+        public DbSet<Establishments> Establishments { get; set; }
     }
 }
