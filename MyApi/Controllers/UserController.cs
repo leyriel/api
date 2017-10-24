@@ -46,7 +46,7 @@ namespace MyApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var users = await _context.Users.SingleOrDefaultAsync(m => m.Id == id);
+            var users = await _context.Users.SingleOrDefaultAsync(m => m.UserId == id);
 
             if (users == null)
             {
@@ -68,7 +68,7 @@ namespace MyApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != users.Id)
+            if (id != users.UserId)
             {
                 return BadRequest();
             }
@@ -116,7 +116,7 @@ namespace MyApi.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUsers", new { id = user.Id }, user);
+            return CreatedAtAction("GetUsers", new { id = user.UserId }, user);
         }
 
         /*
@@ -131,7 +131,7 @@ namespace MyApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var users = await _context.Users.SingleOrDefaultAsync(m => m.Id == id);
+            var users = await _context.Users.SingleOrDefaultAsync(m => m.UserId == id);
             if (users == null)
             {
                 return NotFound();
@@ -145,7 +145,7 @@ namespace MyApi.Controllers
 
         private bool UsersExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.UserId == id);
         }
 
         private string EncryptPassword(string password)

@@ -36,7 +36,7 @@ namespace MyApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var establishments = await _context.Establishments.SingleOrDefaultAsync(m => m.Id == id);
+            var establishments = await _context.Establishments.SingleOrDefaultAsync(m => m.EstablishmentID == id);
 
             if (establishments == null)
             {
@@ -55,7 +55,7 @@ namespace MyApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != establishments.Id)
+            if (id != establishments.EstablishmentID)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace MyApi.Controllers
             _context.Establishments.Add(establishments);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEstablishments", new { id = establishments.Id }, establishments);
+            return CreatedAtAction("GetEstablishments", new { id = establishments.EstablishmentID }, establishments);
         }
 
         // DELETE: api/Establishments/5
@@ -105,7 +105,7 @@ namespace MyApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var establishments = await _context.Establishments.SingleOrDefaultAsync(m => m.Id == id);
+            var establishments = await _context.Establishments.SingleOrDefaultAsync(m => m.EstablishmentID == id);
             if (establishments == null)
             {
                 return NotFound();
@@ -119,7 +119,7 @@ namespace MyApi.Controllers
 
         private bool EstablishmentsExists(int id)
         {
-            return _context.Establishments.Any(e => e.Id == id);
+            return _context.Establishments.Any(e => e.EstablishmentID == id);
         }
     }
 }

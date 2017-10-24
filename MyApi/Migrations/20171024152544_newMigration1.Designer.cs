@@ -11,8 +11,8 @@ using System;
 namespace MyApi.Migrations
 {
     [DbContext(typeof(ApiDBContext))]
-    [Migration("20171023150419_EditEstablishmentsModel")]
-    partial class EditEstablishmentsModel
+    [Migration("20171024152544_newMigration1")]
+    partial class newMigration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,39 +23,52 @@ namespace MyApi.Migrations
 
             modelBuilder.Entity("MyApi.Models.Establishments", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("EstablishmentID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("City");
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.Property<int>("PostalCode")
                         .HasMaxLength(5);
 
-                    b.HasKey("Id");
+                    b.HasKey("EstablishmentID");
 
                     b.ToTable("Establishments");
                 });
 
             modelBuilder.Entity("MyApi.Models.Users", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<int>("EstablishmentID");
+                    b.Property<int?>("EstablishmentID");
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("Skey");
+                    b.Property<string>("Skey")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("Username");
+                    b.Property<string>("Username")
+                        .HasMaxLength(50);
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.HasIndex("EstablishmentID");
 
@@ -67,7 +80,7 @@ namespace MyApi.Migrations
                     b.HasOne("MyApi.Models.Establishments", "Establishment")
                         .WithMany("Users")
                         .HasForeignKey("EstablishmentID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasConstraintName("EstablishmentID");
                 });
 #pragma warning restore 612, 618
         }
