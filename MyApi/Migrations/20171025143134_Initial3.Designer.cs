@@ -11,8 +11,8 @@ using System;
 namespace MyApi.Migrations
 {
     [DbContext(typeof(ApiDBContext))]
-    [Migration("20171024152544_newMigration1")]
-    partial class newMigration1
+    [Migration("20171025143134_Initial3")]
+    partial class Initial3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,66 +21,63 @@ namespace MyApi.Migrations
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("MyApi.Models.Establishments", b =>
+            modelBuilder.Entity("MyApi.Models.Institute", b =>
                 {
-                    b.Property<int>("EstablishmentID")
+                    b.Property<int>("InstituteID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                        .HasMaxLength(50);
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasMaxLength(255);
+                        .HasMaxLength(50);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<int>("PostalCode")
-                        .HasMaxLength(5);
+                    b.Property<int>("Phone");
 
-                    b.HasKey("EstablishmentID");
+                    b.Property<int>("PostalCode");
 
-                    b.ToTable("Establishments");
+                    b.HasKey("InstituteID");
+
+                    b.ToTable("Institutes");
                 });
 
-            modelBuilder.Entity("MyApi.Models.Users", b =>
+            modelBuilder.Entity("MyApi.Models.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("UserID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<int?>("EstablishmentID");
+                    b.Property<int?>("InstituteID");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<string>("Skey")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                    b.Property<string>("Skey");
 
                     b.Property<string>("Username")
                         .HasMaxLength(50);
 
-                    b.HasKey("UserId");
+                    b.HasKey("UserID");
 
-                    b.HasIndex("EstablishmentID");
+                    b.HasIndex("InstituteID");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MyApi.Models.Users", b =>
+            modelBuilder.Entity("MyApi.Models.User", b =>
                 {
-                    b.HasOne("MyApi.Models.Establishments", "Establishment")
+                    b.HasOne("MyApi.Models.Institute")
                         .WithMany("Users")
-                        .HasForeignKey("EstablishmentID")
-                        .HasConstraintName("EstablishmentID");
+                        .HasForeignKey("InstituteID");
                 });
 #pragma warning restore 612, 618
         }

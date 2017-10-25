@@ -29,7 +29,7 @@ namespace MyApi.Controllers
          *Get all users
          */
         [HttpGet]
-        public IEnumerable<Users> GetUsers()
+        public IEnumerable<User> GetUsers()
         {
             return _context.Users;
         }
@@ -46,7 +46,7 @@ namespace MyApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var users = await _context.Users.SingleOrDefaultAsync(m => m.UserId == id);
+            var users = await _context.Users.SingleOrDefaultAsync(m => m.UserID == id);
 
             if (users == null)
             {
@@ -61,14 +61,14 @@ namespace MyApi.Controllers
          *Edit user by id
          */
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsers([FromRoute] int id, [FromBody] Users users)
+        public async Task<IActionResult> PutUsers([FromRoute] int id, [FromBody] User users)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != users.UserId)
+            if (id != users.UserID)
             {
                 return BadRequest();
             }
@@ -98,8 +98,8 @@ namespace MyApi.Controllers
          *GET: api/users/create
          *Create new user
          */
-        [HttpPost("create")]
-        public async Task<IActionResult> PostUsers([FromBody] Users user)
+        [HttpPost()]
+        public async Task<IActionResult> PostUsers([FromBody] User user)
         {
             if (!ModelState.IsValid)
             {
@@ -116,7 +116,7 @@ namespace MyApi.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUsers", new { id = user.UserId }, user);
+            return CreatedAtAction("GetUsers", new { id = user.UserID }, user);
         }
 
         /*
@@ -131,7 +131,7 @@ namespace MyApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var users = await _context.Users.SingleOrDefaultAsync(m => m.UserId == id);
+            var users = await _context.Users.SingleOrDefaultAsync(m => m.UserID == id);
             if (users == null)
             {
                 return NotFound();
@@ -145,7 +145,7 @@ namespace MyApi.Controllers
 
         private bool UsersExists(int id)
         {
-            return _context.Users.Any(e => e.UserId == id);
+            return _context.Users.Any(e => e.UserID == id);
         }
 
         private string EncryptPassword(string password)

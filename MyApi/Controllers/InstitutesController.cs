@@ -10,57 +10,57 @@ using MyApi.Models;
 namespace MyApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/establishments")]
-    public class EstablishmentsController : Controller
+    [Route("api/Institutes")]
+    public class InstitutesController : Controller
     {
         private readonly ApiDBContext _context;
 
-        public EstablishmentsController(ApiDBContext context)
+        public InstitutesController(ApiDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Establishments
+        // GET: api/Institutes
         [HttpGet]
-        public IEnumerable<Establishments> GetEstablishments()
+        public IEnumerable<Institute> GetInstitutes()
         {
-            return _context.Establishments;
+            return _context.Institutes;
         }
 
-        // GET: api/Establishments/5
+        // GET: api/Institutes/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetEstablishments([FromRoute] int id)
+        public async Task<IActionResult> GetInstitute([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var establishments = await _context.Establishments.SingleOrDefaultAsync(m => m.EstablishmentID == id);
+            var institute = await _context.Institutes.SingleOrDefaultAsync(m => m.InstituteID == id);                
 
-            if (establishments == null)
+            if (institute == null)
             {
                 return NotFound();
             }
 
-            return Ok(establishments);
+            return Ok(institute);
         }
 
-        // PUT: api/Establishments/5
+        // PUT: api/Institutes/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEstablishments([FromRoute] int id, [FromBody] Establishments establishments)
+        public async Task<IActionResult> PutInstitute([FromRoute] int id, [FromBody] Institute institute)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != establishments.EstablishmentID)
+            if (id != institute.InstituteID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(establishments).State = EntityState.Modified;
+            _context.Entry(institute).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace MyApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EstablishmentsExists(id))
+                if (!InstituteExists(id))
                 {
                     return NotFound();
                 }
@@ -81,45 +81,45 @@ namespace MyApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Establishments
+        // POST: api/Institutes
         [HttpPost]
-        public async Task<IActionResult> PostEstablishments([FromBody] Establishments establishments)
+        public async Task<IActionResult> PostInstitute([FromBody] Institute institute)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Establishments.Add(establishments);
+            _context.Institutes.Add(institute);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEstablishments", new { id = establishments.EstablishmentID }, establishments);
+            return CreatedAtAction("GetInstitute", new { id = institute.InstituteID }, institute);
         }
 
-        // DELETE: api/Establishments/5
+        // DELETE: api/Institutes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEstablishments([FromRoute] int id)
+        public async Task<IActionResult> DeleteInstitute([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var establishments = await _context.Establishments.SingleOrDefaultAsync(m => m.EstablishmentID == id);
-            if (establishments == null)
+            var institute = await _context.Institutes.SingleOrDefaultAsync(m => m.InstituteID == id);
+            if (institute == null)
             {
                 return NotFound();
             }
 
-            _context.Establishments.Remove(establishments);
+            _context.Institutes.Remove(institute);
             await _context.SaveChangesAsync();
 
-            return Ok(establishments);
+            return Ok(institute);
         }
 
-        private bool EstablishmentsExists(int id)
+        private bool InstituteExists(int id)
         {
-            return _context.Establishments.Any(e => e.EstablishmentID == id);
+            return _context.Institutes.Any(e => e.InstituteID == id);
         }
     }
 }

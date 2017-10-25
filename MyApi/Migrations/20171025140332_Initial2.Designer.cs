@@ -11,8 +11,8 @@ using System;
 namespace MyApi.Migrations
 {
     [DbContext(typeof(ApiDBContext))]
-    [Migration("20171003083408_ubuntuServer")]
-    partial class ubuntuServer
+    [Migration("20171025140332_Initial2")]
+    partial class Initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,34 +21,25 @@ namespace MyApi.Migrations
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("MyApi.Models.Cars", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Brand");
-
-                    b.Property<string>("Model");
-
-                    b.Property<int>("UserID");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cars");
-                });
-
             modelBuilder.Entity("MyApi.Models.Users", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("UserID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<string>("Username");
+                    b.Property<string>("Skey");
 
-                    b.HasKey("id");
+                    b.Property<string>("Username")
+                        .HasMaxLength(50);
+
+                    b.HasKey("UserID");
 
                     b.ToTable("Users");
                 });

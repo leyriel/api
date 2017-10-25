@@ -12,17 +12,7 @@ namespace MyApi.Models
             : base(options)
         { }
 
-        public DbSet<Users> Users { get; set; }
-
-        public DbSet<Establishments> Establishments { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Users>()
-                .HasOne(u => u.Establishment)
-                .WithMany(e => e.Users)
-                .HasForeignKey(u => u.EstablishmentID)
-                .HasConstraintName("EstablishmentID");
-        }
+        public DbSet<User> Users { get; set; }        
+        public DbSet<Institute> Institutes { get; set; }
     }
 }

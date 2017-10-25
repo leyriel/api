@@ -8,14 +8,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyApi.Models
 {
-    [Table("Users")]
-    public class Users
+    public class User
     {
         [Key]     
-        public int UserId { get; set; }
-
-        [ForeignKey("EstablishmentID")]
-        public int? EstablishmentID { get; set; }
+        public int UserID { get; set; }
 
         [Required, StringLength(255)]
         public string Email { get; set; }
@@ -26,9 +22,8 @@ namespace MyApi.Models
         [Required, StringLength(255)]
         public string Password { get; set; }
 
-        [Required, StringLength(255)]
-        public string Skey { get; set; }        
-
-        public virtual Establishments Establishment { get; set; }            
+        public string Skey { get; set; }       
+        
+        public int? InstituteID { get; set; }
     }
 }

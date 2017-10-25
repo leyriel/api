@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MyApi.Migrations
 {
-    public partial class ubuntuServer : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
